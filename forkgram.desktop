@@ -1,0 +1,21 @@
+[Desktop Entry]
+Name=Forkgram
+Comment=New era of messaging
+TryExec=forkgram
+Exec=forkgram -- %u
+Icon=org.forkgram.desktop
+Terminal=false
+StartupWMClass=ForkgramDesktop
+Type=Application
+Categories=Chat;Network;InstantMessaging;Qt;
+MimeType=x-scheme-handler/tg;x-scheme-handler/tonsite;
+Keywords=tg;chat;im;messaging;messenger;sms;tdesktop;
+Actions=quit;
+SingleMainWindow=true
+X-GNOME-UsesNotifications=true
+X-GNOME-SingleWindow=true
+
+[Desktop Action quit]
+Exec=forkgram -quit
+Name=Quit Telegram
+Icon=application-exit
