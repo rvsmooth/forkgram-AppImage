@@ -29,10 +29,10 @@ Der Workflow in `.github/workflows/ci.yml` erzeugt das AppImage, lädt es als Ar
 
 ### Hinweise für Forks
 
-Bei Forks schlägt der Release-Teil des Workflows oft mit `Resource not accessible by integration` fehl, wenn der automatisch bereitgestellte `GITHUB_TOKEN` nur Leserechte hat. Stelle im Fork deshalb Folgendes sicher:
+In Forks schlägt der Release-Teil des Workflows oft mit `Resource not accessible by integration` fehl, weil der automatisch bereitgestellte `GITHUB_TOKEN` dort nur Leserechte hat und sich die Berechtigungen häufig nicht anpassen lassen. Deshalb läuft der Release-Job in Forks **nur**, wenn ein Personal Access Token als Repository-Secret `RELEASE_TOKEN` mit mindestens `contents:write` hinterlegt ist.
 
-- Unter **Settings → Actions → General → Workflow permissions** `Read and write permissions` aktivieren, damit das Workflow-Token Releases anlegen darf.
-- Falls die Rechte nicht angepasst werden können, ein Personal Access Token mit `contents:write` als Repository-Secret `RELEASE_TOKEN` hinterlegen. Der Workflow nutzt dieses Token automatisch für die Snapshot- und Continuous-Releases, fällt sonst auf `GITHUB_TOKEN` zurück und würde dann beim Release-Schritt scheitern.
+- Ohne `RELEASE_TOKEN` wird lediglich das Artefakt erzeugt und der Workflow überspringt den Release-Job, sodass der Lauf trotzdem erfolgreich ist. Die AppImage-Dateien lassen sich dann aus dem Workflow-Lauf herunterladen.
+- Mit `RELEASE_TOKEN` können Snapshot- und Continuous-Releases auch im Fork erstellt werden. Der Workflow nutzt dieses Token automatisch; andernfalls wird auf `GITHUB_TOKEN` zurückgegriffen.
 
 ## Credits
 - CI: [ivan](https://github.com/ivan-hc)
