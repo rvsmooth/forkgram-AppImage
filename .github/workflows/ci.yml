@@ -1,6 +1,4 @@
 name: Release Forkgram AppImages
-permissions:
-  contents: write
 concurrency:
   group: build-${{ github.ref }}
   cancel-in-progress: true
@@ -32,11 +30,9 @@ jobs:
         run: echo "forkgram_version=$FORKGRAM_VERSION" >> $GITHUB_OUTPUT
 
   release:
-    if: github.event.repository.fork == false || secrets.RELEASE_TOKEN != ''
     needs: [build]
+    permissions: write-all
     runs-on: ubuntu-latest
-    env:
-      GH_RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN != '' && secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
 
     steps:
       - uses: actions/download-artifact@v4.1.8
@@ -61,7 +57,6 @@ jobs:
           make_latest: false
           files: |
             *.AppImage*
-          token: ${{ env.GH_RELEASE_TOKEN }}
         continue-on-error: false
 
       # Continuous releases
@@ -74,4 +69,4 @@ jobs:
           draft: false
           files: |
             *.AppImage*
-          repo_token: ${{ env.GH_RELEASE_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
