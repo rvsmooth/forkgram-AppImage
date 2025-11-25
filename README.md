@@ -23,16 +23,5 @@ AppImage of the renowned [Forkgram Project](https://github.com/forkgram/tdesktop
 PREFIX="$HOME/.local" ./install.sh /path/to/forkgram.AppImage
 ```
 
-## GitHub Action workflow (Release Forkgram AppImages)
-
-Der Workflow in `.github/workflows/ci.yml` erzeugt das AppImage, lädt es als Artifact hoch und veröffentlicht es anschließend als Snapshot- und Continuous-Release. Er wird einmal täglich um 11 Uhr UTC ausgeführt oder kann manuell per **Actions → Release Forkgram AppImages → Run workflow** angestoßen werden.
-
-### Hinweise für Forks
-
-In Forks schlägt der Release-Teil des Workflows oft mit `Resource not accessible by integration` fehl, weil der automatisch bereitgestellte `GITHUB_TOKEN` dort nur Leserechte hat und sich die Berechtigungen häufig nicht anpassen lassen. Deshalb läuft der Release-Job in Forks **nur**, wenn ein Personal Access Token als Repository-Secret `RELEASE_TOKEN` mit mindestens `contents:write` hinterlegt ist.
-
-- Ohne `RELEASE_TOKEN` wird lediglich das Artefakt erzeugt und der Workflow überspringt den Release-Job, sodass der Lauf trotzdem erfolgreich ist. Die AppImage-Dateien lassen sich dann aus dem Workflow-Lauf herunterladen.
-- Mit `RELEASE_TOKEN` können Snapshot- und Continuous-Releases auch im Fork erstellt werden. Der Workflow nutzt dieses Token automatisch; andernfalls wird auf `GITHUB_TOKEN` zurückgegriffen.
-
 ## Credits
 - CI: [ivan](https://github.com/ivan-hc)
