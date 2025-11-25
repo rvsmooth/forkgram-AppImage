@@ -50,7 +50,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           name: "Snapshot ${{ needs.build.outputs.forkgram_version }}"
-          tag_name: "${{ needs.build.outputs.forkgram_version }}"
+          tag_name: "${{ env.SNAPSHOT_TAG }}"
           prerelease: false
           draft: false
           generate_release_notes: false
