@@ -21,7 +21,7 @@ build() {
   tar -xf "$FORKGRAM"
 
   # Prepare AppDir
-  mv Telegram "$DIR_STR"/forkgram
+  mv Forkgram "$DIR_STR"/forkgram
   cp forkgram.desktop AppDir/
   cp run.sh AppDir/AppRun
   cp org.forkgram.desktop.png AppDir/
