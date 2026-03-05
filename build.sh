@@ -1,9 +1,9 @@
 #!/bin/bash
-
+set -x
 IMGTOOL_URL="https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage"
 IMGTOOL="aitool"
-TAG=$(curl -s https://api.github.com/repos/forkgram/tdesktop/releases/latest | grep -Po '(?<="tag_name": ")[^"]*')
-FORKGRAM_URL="https://github.com/forkgram/tdesktop/releases/download/${TAG}/Telegram.tar.xz"
+TAG=$(curl -s https://api.github.com/repos/forkgram/tdesktop/releases/latest | jq -r '.tag_name')
+FORKGRAM_URL=$(curl -s 'https://api.github.com/repos/forkgram/tdesktop/releases' | jq --arg tag "$TAG" '.[] | select(.tag_name == $tag) | .assets[] | select(.name | endswith(".tar.xz")) | .browser_download_url')
 FORKGRAM="forkgram.tar.xz"
 DIR_STR="AppDir/usr/bin"
 
