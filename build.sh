@@ -3,7 +3,7 @@ set -x
 IMGTOOL_URL="https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage"
 IMGTOOL="aitool"
 TAG=$(curl -s https://api.github.com/repos/forkgram/tdesktop/releases/latest | jq -r '.tag_name')
-FORKGRAM_URL=$(curl -s 'https://api.github.com/repos/forkgram/tdesktop/releases' | jq --arg tag "$TAG" '.[] | select(.tag_name == $tag) | .assets[] | select(.name | endswith(".tar.xz")) | .browser_download_url')
+FORKGRAM_URL=$(curl -s 'https://api.github.com/repos/forkgram/tdesktop/releases' | jq -r --arg tag "$TAG" '.[] | select(.tag_name == $tag) | .assets[] | select(.name | endswith(".tar.xz")) | .browser_download_url')
 FORKGRAM="forkgram.tar.xz"
 DIR_STR="AppDir/usr/bin"
 
@@ -34,7 +34,7 @@ build() {
 }
 
 # exit if linux binary is not available on the remote repository
-wget -qO "$FORKGRAM" "$FORKGRAM_URL" || {
+wget -qO "$FORKGRAM" $FORKGRAM_URL || {
   echo "Error: Didn't find forkgram-$TAG for linux on remote repo"
   exit 1
 }
